@@ -5,21 +5,26 @@ import "testing"
 func TestEval(t *testing.T) {
 	// find the product of the two numbers in the list that add up to 2020
 
-	input := []int{
-		1721,
-		979,
-		366,
-		299,
-		675,
-		1456,
-	}
+	type test struct {
+    expected   int
+		actual     int
+  }
 
-	expected := 514579
-	actual := Eval(input)
+  tests := []test{
+    {expected: 514579, actual: Eval([]int{
+			1721,
+			979,
+			366,
+			299,
+			675,
+			1456,
+		})},
+		{expected: 0, actual: Eval([]int{0,1,})},
+  }
 
-	if expected != actual {
-		t.Errorf("expected %v, got %v", expected, actual)
-	}
-
-	// TODO: test for error when no combination matches
+  for _, tc := range tests {
+    if tc.expected != tc.actual {
+      t.Errorf("expected '%v', got '%v'", tc.expected, tc.actual)
+    }
+  }
 }
