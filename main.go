@@ -26,4 +26,5 @@ func main() {
 		input = append(input, x)
 	}
 	fmt.Printf("one.Eval: %v\n", one.Eval(input))
+	fmt.Printf("one.EvalPartTwo: %v\n", one.EvalPartTwo(input))
 }

@@ -28,3 +28,28 @@ func TestEval(t *testing.T) {
     }
   }
 }
+
+func TestEvalPartTwo(t *testing.T) {
+	type test struct {
+    expected   int
+		actual     int
+  }
+
+  tests := []test{
+    {expected: 241861950, actual: EvalPartTwo([]int{
+			1721,
+			979,
+			366,
+			299,
+			675,
+			1456,
+		})},
+		{expected: 0, actual: EvalPartTwo([]int{0,1,})},
+  }
+
+  for _, tc := range tests {
+    if tc.expected != tc.actual {
+      t.Errorf("expected '%v', got '%v'", tc.expected, tc.actual)
+    }
+  }
+}
