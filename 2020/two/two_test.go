@@ -19,9 +19,27 @@ func assertStringSlices(expected []string, actual []string, t *testing.T) {
 func TestParseData(t *testing.T) {
   data := []byte("1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc")
   parsedData := ParseData(data)
-  
+
   assertInts(3, len(parsedData), t)
   assertStringSlices([]string{"abcde"}, parsedData["1-3 a"], t)
   assertStringSlices([]string{"cdefg"}, parsedData["1-3 b"], t)
   assertStringSlices([]string{"ccccccccc"}, parsedData["2-9 c"], t)
+}
+
+func TestParseDataWithLineFeedAtEnd(t *testing.T) {
+  data := []byte("1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc\n")
+  parsedData := ParseData(data)
+
+  assertInts(3, len(parsedData), t)
+  assertStringSlices([]string{"abcde"}, parsedData["1-3 a"], t)
+  assertStringSlices([]string{"cdefg"}, parsedData["1-3 b"], t)
+  assertStringSlices([]string{"ccccccccc"}, parsedData["2-9 c"], t)
+}
+
+func TestParseDataSameRuleTwice(t *testing.T) {
+  data := []byte("1-3 a: abcde\n1-3 a: cdefg")
+  parsedData := ParseData(data)
+
+  assertInts(1, len(parsedData), t)
+  assertStringSlices([]string{"abcde", "cdefg"}, parsedData["1-3 a"], t)
 }
