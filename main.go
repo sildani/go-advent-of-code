@@ -15,16 +15,21 @@ func check(e error) {
   }
 }
 
-func dayOne() {
-  dat, err := ioutil.ReadFile("./2020/input/one.txt")
-  check(err)
-  stringInput := strings.Split(string(dat), "\n")
-  var input []int
+func convertByteSliceToIntSlice(bytes []byte) []int {
+  stringInput := strings.Split(string(bytes), "\n")
+  var retval []int
   for _, str := range stringInput {
     x, e := strconv.Atoi(strings.Replace(str, "\r","",-1))
     check(e)
-    input = append(input, x)
+    retval = append(retval, x)
   }
+  return retval
+}
+
+func dayOne() {
+  dat, err := ioutil.ReadFile("./2020/input/one.txt")
+  check(err)
+  input := convertByteSliceToIntSlice(dat)
   fmt.Printf("one.Eval: %v\n", one.Eval(input))
   fmt.Printf("one.EvalPartTwo: %v\n", one.EvalPartTwo(input))
 }
