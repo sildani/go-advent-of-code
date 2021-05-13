@@ -36,7 +36,8 @@ func dayOne() {
 }
 
 func dayTwo() {
-  var validPasswords int
+  var partOneRulesValidPasswords int
+  var partTwoRulesValidPasswords int
   var passwordsChecked int
   dat, err := ioutil.ReadFile("./2020/two/input/two.txt")
   check(err)
@@ -44,12 +45,16 @@ func dayTwo() {
   for policy, passwordSlice := range parsedData {
     for _, password := range passwordSlice {
       passwordsChecked++
-      if two.IsPasswordValid(policy, password) {
-        validPasswords++
+      if two.IsPasswordValid(policy, password, two.PartOneRuleSet) {
+        partOneRulesValidPasswords++
+      }
+      if two.IsPasswordValid(policy, password, two.PartTwoRuleSet) {
+        partTwoRulesValidPasswords++
       }
     }
   }
-  fmt.Printf("dayTwo; validPasswords: %v; passwordsChecked: %v;\n", validPasswords, passwordsChecked)
+  fmt.Printf("dayTwo Part One; partOneRulesValidPasswords: %v; passwordsChecked: %v;\n", partOneRulesValidPasswords, passwordsChecked)
+  fmt.Printf("dayTwo Part One; partTwoRulesValidPasswords: %v; passwordsChecked: %v;\n", partTwoRulesValidPasswords, passwordsChecked)
 }
 
 func main() {

@@ -26,9 +26,10 @@ func GeneratePolicyRegex(policy string) string {
   return fmt.Sprintf("[%s]{%s,%s}", x[1], y[0], y[1])
 }
 
-func IsPasswordValid(policy string, password string) bool {
-  policyParts := strings.Split(policy, " ")
+func IsPasswordValid(policy string, password string, ruleset RuleSet) bool {
+  var valid bool
 
+  policyParts := strings.Split(policy, " ")
   countRange := strings.Split(policyParts[0], "-")
   lowerRange, _ := strconv.Atoi(countRange[0])
   upperRange, _ := strconv.Atoi(countRange[1])
@@ -36,9 +37,23 @@ func IsPasswordValid(policy string, password string) bool {
   letter := policyParts[1]
 
   count := strings.Count(password, letter)
-  valid := count >= lowerRange && count <= upperRange
 
-  fmt.Printf("PasswordAudit; policy: %v; password: %v; valid: %v;\n", policy, password, valid)
-  
+  if ruleset == PartOneRuleSet {
+    valid = count >= lowerRange && count <= upperRange
+  }
+
+  if ruleset == PartTwoRuleSet {
+    var letterAtFirstEligiblePosition bool
+    var letterAtSecondEligiblePosition bool
+    if len(password) >= lowerRange {
+      letterAtFirstEligiblePosition = string(password[lowerRange-1]) == letter
+    }
+    if len(password) >= upperRange {
+      letterAtSecondEligiblePosition = string(password[upperRange-1]) == letter
+    }
+    valid = (letterAtFirstEligiblePosition || letterAtSecondEligiblePosition) && (letterAtFirstEligiblePosition != letterAtSecondEligiblePosition)
+  }
+
+  fmt.Printf("PasswordAudit; policy: %v; password: %v; ruleset: %v; valid: %v;\n", policy, password, ruleset, valid)
   return valid
 }

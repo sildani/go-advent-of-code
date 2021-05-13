@@ -63,9 +63,15 @@ func TestGeneratePolicyRegex(t *testing.T) {
 }
 
 func TestIsPasswordValid(t *testing.T) {
-  assertBooleans(true, IsPasswordValid("1-3 a", "abcde"), t)
-  assertBooleans(false, IsPasswordValid("1-3 b", "cdefg"), t)
-  assertBooleans(true, IsPasswordValid("2-9 c", "ccccccccc"), t)
-  assertBooleans(false, IsPasswordValid("8-9 c", "cccccccwn"), t)
-  assertBooleans(false, IsPasswordValid("6-15 z", "zznzzzzzzzzzzzzzzzzz"), t)
+  assertBooleans(true,  IsPasswordValid("1-3 a", "abcde", PartOneRuleSet), t)
+  assertBooleans(false, IsPasswordValid("1-3 b", "cdefg", PartOneRuleSet), t)
+  assertBooleans(true,  IsPasswordValid("2-9 c", "ccccccccc", PartOneRuleSet), t)
+  assertBooleans(false, IsPasswordValid("8-9 c", "cccccccwn", PartOneRuleSet), t)
+  assertBooleans(false, IsPasswordValid("6-15 z", "zznzzzzzzzzzzzzzzzzz", PartOneRuleSet), t)
+
+  assertBooleans(true,  IsPasswordValid("1-3 a", "abcde", PartTwoRuleSet), t)
+  assertBooleans(false,  IsPasswordValid("10-11 a", "abcde", PartTwoRuleSet), t)
+  assertBooleans(false, IsPasswordValid("1-3 b", "cdefg", PartTwoRuleSet), t)
+  assertBooleans(false,  IsPasswordValid("2-9 c", "ccccccccc", PartTwoRuleSet), t)
+  assertBooleans(true,  IsPasswordValid("1-7 c", "acccccccc", PartTwoRuleSet), t)
 }
