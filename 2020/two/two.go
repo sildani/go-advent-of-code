@@ -2,8 +2,8 @@ package two
 
 import (
   "fmt"
+  "strconv"
   "strings"
-  "regexp"
 )
 
 func ParseData(data []byte) map[string][]string {
@@ -23,12 +23,22 @@ func GeneratePolicyRegex(policy string) string {
   x := strings.Split(policy, " ")
   y := strings.Split(x[0], "-")
   fmt.Printf("GeneratePolicyRegex; x: %s; y: %s;\n", x, y)
-  return fmt.Sprintf("%s{%s,%s}", x[1], y[0], y[1])
+  return fmt.Sprintf("[%s]{%s,%s}", x[1], y[0], y[1])
 }
 
-func PasswordAudit(policy string, password string) bool {
-  policyRegex := GeneratePolicyRegex(policy)
-  matched, _ := regexp.MatchString(policyRegex, password)
-  fmt.Printf("PasswordAudit; policyRegex: %s; password: %s; matched: %v;\n", policyRegex, password, matched)
-  return matched
+func IsPasswordValid(policy string, password string) bool {
+  policyParts := strings.Split(policy, " ")
+
+  countRange := strings.Split(policyParts[0], "-")
+  lowerRange, _ := strconv.Atoi(countRange[0])
+  upperRange, _ := strconv.Atoi(countRange[1])
+
+  letter := policyParts[1]
+
+  count := strings.Count(password, letter)
+  valid := count >= lowerRange && count <= upperRange
+
+  fmt.Printf("PasswordAudit; policy: %v; password: %v; valid: %v;\n", policy, password, valid)
+  
+  return valid
 }

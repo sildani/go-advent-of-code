@@ -57,13 +57,15 @@ func TestParseDataSameRuleTwice(t *testing.T) {
 }
 
 func TestGeneratePolicyRegex(t *testing.T) {
-  assertStrings("a{1,3}", GeneratePolicyRegex("1-3 a"), t)
-  assertStrings("b{1,3}", GeneratePolicyRegex("1-3 b"), t)
-  assertStrings("c{2,9}", GeneratePolicyRegex("2-9 c"), t)
+  assertStrings("[a]{1,3}", GeneratePolicyRegex("1-3 a"), t)
+  assertStrings("[b]{1,3}", GeneratePolicyRegex("1-3 b"), t)
+  assertStrings("[c]{2,9}", GeneratePolicyRegex("2-9 c"), t)
 }
 
-func TestPasswordValid(t *testing.T) {
-  assertBooleans(true, PasswordAudit("1-3 a", "abcde"), t)
-  assertBooleans(false, PasswordAudit("1-3 b", "cdefg"), t)
-  assertBooleans(true, PasswordAudit("2-9 c", "ccccccccc"), t)
+func TestIsPasswordValid(t *testing.T) {
+  assertBooleans(true, IsPasswordValid("1-3 a", "abcde"), t)
+  assertBooleans(false, IsPasswordValid("1-3 b", "cdefg"), t)
+  assertBooleans(true, IsPasswordValid("2-9 c", "ccccccccc"), t)
+  assertBooleans(false, IsPasswordValid("8-9 c", "cccccccwn"), t)
+  assertBooleans(false, IsPasswordValid("6-15 z", "zznzzzzzzzzzzzzzzzzz"), t)
 }
