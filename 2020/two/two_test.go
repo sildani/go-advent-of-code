@@ -28,6 +28,7 @@ func assertBooleans(expected bool, actual bool, t *testing.T) {
     t.Errorf("expected %v, got %v\n", expected, actual)
   }
 }
+
 func TestParseData(t *testing.T) {
   data := []byte("1-3 a: abcde\n1-3 b: cdefg\n2-9 c: ccccccccc")
   parsedData := ParseData(data)
