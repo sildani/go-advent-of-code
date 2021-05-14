@@ -6,9 +6,9 @@ import (
   "strconv"
   "strings"
 
-  "github.com/sildani/go-advent-of-code/2020/one"
-  "github.com/sildani/go-advent-of-code/2020/three"
-  "github.com/sildani/go-advent-of-code/2020/two"
+  "github.com/sildani/go-advent-of-code/2020/Day-01"
+  "github.com/sildani/go-advent-of-code/2020/Day-02"
+  "github.com/sildani/go-advent-of-code/2020/Day-03"
 )
 
 func check(e error) {
@@ -29,7 +29,7 @@ func convertByteSliceToIntSlice(bytes []byte) []int {
 }
 
 func dayOne() {
-  dat, err := ioutil.ReadFile("./2020/one/input/one.txt")
+  dat, err := ioutil.ReadFile("./2020/Day-01/resources/input.txt")
   check(err)
   input := convertByteSliceToIntSlice(dat)
   fmt.Printf("one.Eval: %v\n", one.Eval(input))
@@ -40,7 +40,7 @@ func dayTwo() {
   var partOneRulesValidPasswords int
   var partTwoRulesValidPasswords int
   var passwordsChecked int
-  dat, err := ioutil.ReadFile("./2020/two/input/two.txt")
+  dat, err := ioutil.ReadFile("./2020/Day-02/resources/input.txt")
   check(err)
   parsedData := two.ParseData(dat)
   for policy, passwordSlice := range parsedData {
@@ -59,7 +59,7 @@ func dayTwo() {
 }
 
 func dayThree() {
-  dat, err := ioutil.ReadFile("./2020/three/input/three.txt")
+  dat, err := ioutil.ReadFile("./2020/Day-03/resources/input.txt")
   check(err)
   terrain := strings.Split(string(dat), "\n")
   treeCount := three.FindTreesInTerrain(terrain, []int{3, 1})
