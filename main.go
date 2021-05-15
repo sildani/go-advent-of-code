@@ -6,9 +6,10 @@ import (
   "strconv"
   "strings"
 
-  "github.com/sildani/go-advent-of-code/2020/Day-01"
-  "github.com/sildani/go-advent-of-code/2020/Day-02"
-  "github.com/sildani/go-advent-of-code/2020/Day-03"
+  one   "github.com/sildani/go-advent-of-code/2020/Day-01"
+  two   "github.com/sildani/go-advent-of-code/2020/Day-02"
+  three "github.com/sildani/go-advent-of-code/2020/Day-03"
+  four  "github.com/sildani/go-advent-of-code/2020/Day-04"
 )
 
 func check(e error) {
@@ -66,12 +67,12 @@ func dayThree() {
   fmt.Printf("dayThree Part One; treeCount: %v;\n", treeCount)
 
   treeCount = 0
-  slopes := [][]int {
-    {1,1,},
-    {3,1,},
-    {5,1,},
-    {7,1,},
-    {1,2,},
+  slopes := [][]int{
+    {1, 1},
+    {3, 1},
+    {5, 1},
+    {7, 1},
+    {1, 2},
   }
   for _, slope := range slopes {
     if treeCount == 0 {
@@ -83,8 +84,32 @@ func dayThree() {
   fmt.Printf("dayThree Part Two; treeCount: %v;\n", treeCount)
 }
 
+func dayFour() {
+  dat, err := ioutil.ReadFile("./2020/Day-04/resources/input.txt")
+  check(err)
+  passports := four.ParsePassportData(dat)
+
+  validPassportCount := 0
+  for _, passport := range passports {
+    if four.IsPassportValid(passport, true, false) {
+      validPassportCount++
+    }
+  }
+  fmt.Printf("dayThree Part One; treeCount: %v;\n", validPassportCount)
+
+  validPassportCount = 0
+  for _, passport := range passports {
+    if four.IsPassportValid(passport, true, true) {
+      validPassportCount++
+    }
+  }
+  fmt.Printf("dayThree Part Two; treeCount: %v;\n", validPassportCount)
+
+}
+
 func main() {
   dayOne()
   dayTwo()
   dayThree()
+  dayFour()
 }
