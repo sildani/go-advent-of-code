@@ -79,7 +79,7 @@ func IsPassportValid(passport map[string]string, ignoreCountryField bool, fieldV
         }
       }
     }
-    fmt.Printf("IsPassportValid; field: %v; valid: %v;\n", field, valid)
+    // fmt.Printf("IsPassportValid; field: %v; valid: %v;\n", field, valid)
   }
   fmt.Printf("IsPassportValid; passport: %v; valid: %v;\n", passport, valid)
   return valid
@@ -127,17 +127,16 @@ func isValidColor(value string) bool {
 }
 
 func isValidEyeColor(value string) bool {
-  valid := len(value) == 3
-  if valid {
+  valid := false
+  if len(value) == 3 {
     validColors := []string{"amb", "blu", "brn", "gry", "grn", "hzl", "oth"}
-    valid = false // false until proven otherwise
     for _, validColor := range validColors {
       if !valid {
         valid = value == validColor
       }
     }
   }
-  fmt.Printf("isValidEyeColor; value: %v; valid: %v;\n", value, valid)
+  // fmt.Printf("isValidEyeColor; value: %v; valid: %v;\n", value, valid)
   return valid
 }
 

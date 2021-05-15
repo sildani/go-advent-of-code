@@ -95,16 +95,16 @@ func dayFour() {
       validPassportCount++
     }
   }
-  fmt.Printf("dayThree Part One; treeCount: %v;\n", validPassportCount)
 
-  validPassportCount = 0
+  validPassportStrictRulesCount := 0
   for _, passport := range passports {
     if four.IsPassportValid(passport, true, true) {
-      validPassportCount++
+      validPassportStrictRulesCount++
     }
   }
-  fmt.Printf("dayThree Part Two; treeCount: %v;\n", validPassportCount)
 
+  fmt.Printf("dayThree Part One; treeCount: %v;\n", validPassportCount)
+  fmt.Printf("dayThree Part Two; treeCount: %v;\n", validPassportStrictRulesCount)
 }
 
 func main() {
