@@ -6,10 +6,11 @@ import (
   "strconv"
   "strings"
 
-  one   "github.com/sildani/go-advent-of-code/2020/Day-01"
-  two   "github.com/sildani/go-advent-of-code/2020/Day-02"
+  one "github.com/sildani/go-advent-of-code/2020/Day-01"
+  two "github.com/sildani/go-advent-of-code/2020/Day-02"
   three "github.com/sildani/go-advent-of-code/2020/Day-03"
-  four  "github.com/sildani/go-advent-of-code/2020/Day-04"
+  four "github.com/sildani/go-advent-of-code/2020/Day-04"
+  five "github.com/sildani/go-advent-of-code/2020/Day-05"
 )
 
 func check(e error) {
@@ -107,9 +108,24 @@ func dayFour() {
   fmt.Printf("dayThree Part Two; treeCount: %v;\n", validPassportStrictRulesCount)
 }
 
+func dayFive() {
+  dat, err := ioutil.ReadFile("./2020/Day-05/resources/input.txt")
+  check(err)
+  boardingPassses := five.ParseData(dat)
+
+  var seatIDs []int
+  for _, boardingPass := range boardingPassses {
+    _, _, seatID := five.DeductSeat(boardingPass)
+    seatIDs = append(seatIDs, seatID)
+  }
+
+  fmt.Printf("dayFive Part One; Highest seat ID: %v;\n", five.FindHighestSeatID(seatIDs))
+}
+
 func main() {
   dayOne()
   dayTwo()
   dayThree()
   dayFour()
+  dayFive()
 }
