@@ -56,3 +56,12 @@ func TestFindHighestSeatID(t *testing.T) {
     t.Errorf("TestFindHighestSeatID; expected: %v; actual: %v; input: %v;\n", expected, actual, input)
   }
 }
+
+func TestFindMissingSeatID(t *testing.T) {
+  input    := []int {10,15,8,14,7,13,11,9}
+  expected := 12
+  actual   := FindMissingSeatID(input)
+  if expected != actual {
+    t.Errorf("TestFindMissingSeatID; expected: %v; actual: %v; input: %v;\n", expected, actual, input)
+  }
+}

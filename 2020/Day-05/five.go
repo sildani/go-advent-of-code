@@ -2,6 +2,7 @@ package five
 
 import (
   "fmt"
+  "sort"
   "strings"
 )
 
@@ -38,6 +39,27 @@ func FindHighestSeatID(seatList []int) int {
     }
   }
   return highestValue
+}
+
+func FindMissingSeatID(seatList []int) int {
+  var missingSeatID int
+  sort.Slice(seatList, func(i, j int) bool {
+		return seatList[i] < seatList[j]
+	})
+  fmt.Printf("FindMissingSeatID; seatList: %v;\n", seatList)
+  var lastSeat int
+  for i, seat := range seatList {
+    if i == 0 {
+      lastSeat = seat
+    } else {
+      fmt.Printf("FindMissingSeatID; lastSeat: %v; seat: %v;\n", lastSeat, seat)
+      if seat - lastSeat > 1 {
+        missingSeatID = seat - 1
+      }
+      lastSeat = seat
+    }
+  }
+  return missingSeatID
 }
 
 func deductFromRangeAndRunes(possiblities []int, inputRunes []rune) int {

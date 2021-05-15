@@ -119,7 +119,11 @@ func dayFive() {
     seatIDs = append(seatIDs, seatID)
   }
 
-  fmt.Printf("dayFive Part One; Highest seat ID: %v;\n", five.FindHighestSeatID(seatIDs))
+  highestSeatID := five.FindHighestSeatID(seatIDs)
+  missingSeatID := five.FindMissingSeatID(seatIDs)
+  
+  fmt.Printf("dayFive Part One; Highest seat ID: %v;\n", highestSeatID)
+  fmt.Printf("dayFive Part Two; Missing seat ID: %v;\n", missingSeatID)
 }
 
 func main() {
