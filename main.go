@@ -11,6 +11,7 @@ import (
   three "github.com/sildani/go-advent-of-code/2020/Day-03"
   four "github.com/sildani/go-advent-of-code/2020/Day-04"
   five "github.com/sildani/go-advent-of-code/2020/Day-05"
+  six "github.com/sildani/go-advent-of-code/2020/Day-06"
 )
 
 func check(e error) {
@@ -126,10 +127,22 @@ func dayFive() {
   fmt.Printf("dayFive Part Two; Missing seat ID: %v;\n", missingSeatID)
 }
 
+func daySix() {
+  dat, err := ioutil.ReadFile("./2020/Day-06/resources/input.txt")
+  check(err)
+  answersList := six.ParseData(dat, "Part One")
+  sumOfUniqueAnswers := six.GetSumOfUniqueAnswers(answersList)
+  answersList = six.ParseData(dat, "Part Two")
+  sumOfConsistentAnswers := six.GetSumOfConsistentAnswers(answersList)
+  fmt.Printf("daySix Part One; Sum of unique answers: %v;\n", sumOfUniqueAnswers)
+  fmt.Printf("daySix Part Two; Sum of consistent answers: %v;\n", sumOfConsistentAnswers)
+}
+
 func main() {
   dayOne()
   dayTwo()
   dayThree()
   dayFour()
   dayFive()
+  daySix()
 }
